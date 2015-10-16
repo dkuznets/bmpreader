@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPview", "BPview\BPview.csproj", "{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMPReader3", "BMPReader3\BMPReader3.csproj", "{D39F6991-07BA-4420-AF00-B8D528A24DBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A9E137F1-5AB1-4666-A9AE-46A23C17ECF8}.Release|Win32.ActiveCfg = Release|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D39F6991-07BA-4420-AF00-B8D528A24DBE}.Release|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

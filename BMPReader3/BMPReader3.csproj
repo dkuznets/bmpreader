@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D39F6991-07BA-4420-AF00-B8D528A24DBE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BMPReader3</RootNamespace>
+    <AssemblyName>BMPReader3</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>опубликовать\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.87.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Windows media player.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge.Video">
+      <HintPath>..\lib\AForge\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox1.Designer.cs">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AF\Core\Delegates.cs" />
+    <Compile Include="AF\Core\DoublePoint.cs" />
+    <Compile Include="AF\Core\DoubleRange.cs" />
+    <Compile Include="AF\Core\EventArgs.cs" />
+    <Compile Include="AF\Core\Exceptions.cs" />
+    <Compile Include="AF\Core\IntPoint.cs" />
+    <Compile Include="AF\Core\IntRange.cs" />
+    <Compile Include="AF\Core\Parallel.cs" />
+    <Compile Include="AF\Core\Point.cs" />
+    <Compile Include="AF\Core\PolishExpression.cs" />
+    <Compile Include="AF\Core\Range.cs" />
+    <Compile Include="AF\Core\SystemTools.cs" />
+    <Compile Include="AF\Core\ThreadSafeRandom.cs" />
+    <Compile Include="AF\Video.DirectShow\CameraControlProperty.cs" />
+    <Compile Include="AF\Video.DirectShow\FileVideoSource.cs" />
+    <Compile Include="AF\Video.DirectShow\FilterInfo.cs" />
+    <Compile Include="AF\Video.DirectShow\FilterInfoCollection.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IAMCameraControl.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IAMCrossbar.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IAMStreamConfig.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IAMVideoControl.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IBaseFilter.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\ICaptureGraphBuilder2.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\ICreateDevEnum.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IEnumFilters.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IEnumPins.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IFileSourceFilter.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IFilterGraph.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IFilterGraph2.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IGraphBuilder.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IMediaControl.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IMediaEventEx.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IMediaFilter.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IPersist.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IPin.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IPropertyBag.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IReferenceClock.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\ISampleGrabber.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\ISampleGrabberCB.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\ISpecifyPropertyPages.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\IVideoWindow.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\Structures.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\Tools.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\Uuids.cs" />
+    <Compile Include="AF\Video.DirectShow\Internals\Win32.cs" />
+    <Compile Include="AF\Video.DirectShow\PhysicalConnectorType.cs" />
+    <Compile Include="AF\Video.DirectShow\Uuids.cs" />
+    <Compile Include="AF\Video.DirectShow\VideoCapabilities.cs" />
+    <Compile Include="AF\Video.DirectShow\VideoCaptureDevice.cs" />
+    <Compile Include="AF\Video.DirectShow\VideoInput.cs" />
+    <Compile Include="AF\Video.VFW\AVIFileVideoSource.cs" />
+    <Compile Include="AF\Video.VFW\AVIReader.cs" />
+    <Compile Include="AF\Video.VFW\AVIWriter.cs" />
+    <Compile Include="AF\Video.VFW\Win32.cs" />
+    <Compile Include="AF\Video\AsyncVideoSource.cs" />
+    <Compile Include="AF\Video\ByteArrayUtils.cs" />
+    <Compile Include="AF\Video\Exceptions.cs" />
+    <Compile Include="AF\Video\IVideoSource.cs" />
+    <Compile Include="AF\Video\JPEGStream.cs" />
+    <Compile Include="AF\Video\MJPEGStream.cs" />
+    <Compile Include="AF\Video\ScreenCaptureStream.cs" />
+    <Compile Include="AF\Video\VideoEvents.cs" />
+    <Compile Include="BMPStruct.cs" />
+    <Compile Include="ffw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ffw.Designer.cs">
+      <DependentUpon>ffw.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="histo2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="histo2.Designer.cs">
+      <DependentUpon>histo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="hover_window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hover_window.Designer.cs">
+      <DependentUpon>hover_window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="marker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="marker.Designer.cs">
+      <DependentUpon>marker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ra.Designer.cs">
+      <DependentUpon>ra.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutBox1.resx">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ffw.resx">
+      <DependentUpon>ffw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="histo2.resx">
+      <DependentUpon>histo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hover_window.resx">
+      <DependentUpon>hover_window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="marker.resx">
+      <DependentUpon>marker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ra.resx">
+      <DependentUpon>ra.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="AF\Video.FFMPEG\AForge.Video.FFMPEG.snk" />
+    <None Include="AF\Video.FFMPEG\Video.FFMPEG.vcxproj" />
+    <None Include="AF\Video.FFMPEG\Video.FFMPEG.vcxproj.filters" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AF\Video.FFMPEG\AssemblyInfo.cpp" />
+    <Content Include="AF\Video.FFMPEG\Stdafx.cpp" />
+    <Content Include="AF\Video.FFMPEG\Stdafx.h" />
+    <Content Include="AF\Video.FFMPEG\Video.FFMPEG.sln" />
+    <Content Include="AF\Video.FFMPEG\VideoCodec.cpp" />
+    <Content Include="AF\Video.FFMPEG\VideoCodec.h" />
+    <Content Include="AF\Video.FFMPEG\VideoFileReader.cpp" />
+    <Content Include="AF\Video.FFMPEG\VideoFileReader.h" />
+    <Content Include="AF\Video.FFMPEG\VideoFileSource.cpp" />
+    <Content Include="AF\Video.FFMPEG\VideoFileSource.h" />
+    <Content Include="AF\Video.FFMPEG\VideoFileWriter.cpp" />
+    <Content Include="AF\Video.FFMPEG\VideoFileWriter.h" />
+    <Content Include="TextFile1.txt" />
+    <Content Include="Windows media player.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль .NET Framework 3.5 с пакетом обновления 1 %28SP1%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>@echo off
+if $(ConfigurationName)==Release c:\windows\getbuildnum.exe "$(ProjectDir)Properties\AssemblyInfo.cs" "$(TargetPath)"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
