@@ -85,6 +85,7 @@
 			this.timer3 = new System.Windows.Forms.Timer(this.components);
 			this.flash_find = new System.Windows.Forms.CheckBox();
 			this.cb_RA = new System.Windows.Forms.CheckBox();
+			this.tb_Delay = new System.Windows.Forms.TrackBar();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trb_contr1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbNavigation)).BeginInit();
@@ -94,6 +95,7 @@
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.histo_bar2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.histo_bar1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.tb_Delay)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// openFileDialog1
@@ -683,12 +685,26 @@
 			this.cb_RA.UseVisualStyleBackColor = true;
 			this.cb_RA.CheckedChanged += new System.EventHandler(this.cb_RA_CheckedChanged);
 			// 
+			// tb_Delay
+			// 
+			this.tb_Delay.AutoSize = false;
+			this.tb_Delay.LargeChange = 100;
+			this.tb_Delay.Location = new System.Drawing.Point(489, 666);
+			this.tb_Delay.Maximum = 1000;
+			this.tb_Delay.Name = "tb_Delay";
+			this.tb_Delay.Size = new System.Drawing.Size(170, 27);
+			this.tb_Delay.SmallChange = 10;
+			this.tb_Delay.TabIndex = 109;
+			this.tb_Delay.TickFrequency = 100;
+			this.tb_Delay.Value = 1000;
+			// 
 			// Form1
 			// 
 			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(666, 722);
+			this.Controls.Add(this.tb_Delay);
 			this.Controls.Add(this.cb_RA);
 			this.Controls.Add(this.flash_find);
 			this.Controls.Add(this.txt);
@@ -732,6 +748,7 @@
 			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.histo_bar2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.histo_bar1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.tb_Delay)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -794,6 +811,7 @@
 		private System.Windows.Forms.CheckBox checkBox2;
 		private System.Windows.Forms.TrackBar histo_bar2;
 		private System.Windows.Forms.CheckBox checkBox3;
+		private System.Windows.Forms.TrackBar tb_Delay;
 	}
 }
 

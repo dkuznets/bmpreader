@@ -14,6 +14,7 @@ using System.Diagnostics;
 using AForge.Video.VFW;
 using AForge.Video.DirectShow;
 using System.Threading;
+using System.Linq;
 
 
 namespace BMPReader3
@@ -688,6 +689,9 @@ namespace BMPReader3
 //							{return q1.CompareTo(q2);});
 //						String ss = String.Empty;
 						int x = 0, y = 0;
+
+						FlashData = RemoveDoubles(FlashData);
+
 						foreach (uint qq in FlashData)
 						{
 							if (qq != 0)
@@ -850,6 +854,7 @@ namespace BMPReader3
 			if (State == PlayState.play)
 				frame_counter++;
 
+			Thread.Sleep(tb_Delay.Maximum - tb_Delay.Value);
 		}
 
 		#region обработка главного таймера
@@ -1988,7 +1993,13 @@ namespace BMPReader3
             }
         }
 
-
+		public static List<T> RemoveDoubles<T>(List<T> list)
+		{
+			var set = new HashSet<T>();
+			foreach (var value in list)
+				set.Add(value);
+			return set.ToList();
+		}
 	}
 
 }
