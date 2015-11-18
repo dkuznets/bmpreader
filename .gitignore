@@ -35,3 +35,9 @@ BMPReader/obj/
 *.sdf
 BMPReader/
 BMPReader2/
+KGS_Orion_Decode/bin/
+KGS_Orion_Decode/obj/
+*.exe
+*.pdb
+*.manifest
+
