@@ -33,11 +33,13 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.rb_kgs = new System.Windows.Forms.RadioButton();
+            this.rb_bin = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Location = new System.Drawing.Point(12, 35);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -47,14 +49,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 14);
+            this.textBox1.Location = new System.Drawing.Point(93, 37);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(429, 20);
             this.textBox1.TabIndex = 1;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 42);
+            this.progressBar1.Location = new System.Drawing.Point(11, 64);
             this.progressBar1.Maximum = 81920;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(511, 18);
@@ -64,16 +66,40 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 69);
+            this.label1.Location = new System.Drawing.Point(12, 96);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 3;
+            // 
+            // rb_kgs
+            // 
+            this.rb_kgs.AutoSize = true;
+            this.rb_kgs.Checked = true;
+            this.rb_kgs.Location = new System.Drawing.Point(12, 12);
+            this.rb_kgs.Name = "rb_kgs";
+            this.rb_kgs.Size = new System.Drawing.Size(89, 17);
+            this.rb_kgs.TabIndex = 4;
+            this.rb_kgs.TabStop = true;
+            this.rb_kgs.Text = "Файлы *.kgs";
+            this.rb_kgs.UseVisualStyleBackColor = true;
+            // 
+            // rb_bin
+            // 
+            this.rb_bin.AutoSize = true;
+            this.rb_bin.Location = new System.Drawing.Point(107, 12);
+            this.rb_bin.Name = "rb_bin";
+            this.rb_bin.Size = new System.Drawing.Size(86, 17);
+            this.rb_bin.TabIndex = 5;
+            this.rb_bin.Text = "Файлы *.bin";
+            this.rb_bin.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 91);
+            this.ClientSize = new System.Drawing.Size(535, 121);
+            this.Controls.Add(this.rb_bin);
+            this.Controls.Add(this.rb_kgs);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.textBox1);
@@ -96,6 +122,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton rb_kgs;
+        private System.Windows.Forms.RadioButton rb_bin;
     }
 }
 
