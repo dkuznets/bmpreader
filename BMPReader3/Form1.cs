@@ -63,7 +63,7 @@ namespace BMPReader3
 		UInt16[] idata;
 		Byte[] idata8;
 
-		const UInt16 RSHT = 7;
+		const UInt16 RSHT = 6;
 
 		public readonly int corr_contr = 2;
 
@@ -172,15 +172,15 @@ namespace BMPReader3
 			trb_contr2.Maximum = 4000;
 			trb_contr2.Value = 0;
 
-#if DEBUG
-			if (Environment.CommandLine != "" && File.Exists(Environment.GetCommandLineArgs()[1]))
+//#if DEBUG
+			if (Environment.GetCommandLineArgs().Count() > 1 && Environment.CommandLine != "" && File.Exists(Environment.GetCommandLineArgs()[1]))
 			{
 				FileName = Environment.GetCommandLineArgs()[1];
 				mouse_down = false;
 				nomouseclick = true;
 				openFile(FileName);
 			}
-#endif
+//#endif
 			histo_bar1.Enabled = false;
 			histo_bar2.Enabled = false;
 		}
@@ -256,7 +256,7 @@ namespace BMPReader3
 		#region ContrastImage
 		private void ContrastImage()
 		{
-			if(checkBox2.Checked)
+			if(cntr1.Checked)
 			{
 				if (glav_image == null)
 					return;
@@ -516,7 +516,7 @@ namespace BMPReader3
 				int _minpix = 65535, _maxpix = 0;
 				UInt16 _minp = 0, _maxp = 0;
 
-				Boolean _cntr7 = cntr7.Checked;
+				Boolean _cntr7 = cntr3.Checked;
 
 				UInt16 predel = 16383;
 
@@ -555,14 +555,14 @@ namespace BMPReader3
 
 					UInt16 _av_minp = (UInt16)((cur_minpix + _minp) / 2);
 					UInt16 _av_maxp = (UInt16)((cur_maxpix + _maxp) / 2);
-					if (checkBox3.Checked)
+					if (cntr2.Checked)
 					{
 						ImageData16[j1] = (UInt16)((ImageData16[j1] - corr) * corr_contr + corr); // Контрастирование
 						ImageData16[j2] = (UInt16)((ImageData16[j2] - corr) * corr_contr + corr); // Контрастирование
 						ImageData16[j3] = (UInt16)((ImageData16[j3] - corr) * corr_contr + corr); // Контрастирование
 						ImageData16[j4] = (UInt16)((ImageData16[j4] - corr) * corr_contr + corr); // Контрастирование
 					}
-					if (cntr7.Checked)
+					if (cntr3.Checked)
 					{
 						// убираем фон
 						ImageData16[j1] = (UInt16)(((ImageData16[j1] - _av_minp) < 0) ? 0 : (ImageData16[j1] - _av_minp)); // Контрастирование
@@ -1822,7 +1822,7 @@ namespace BMPReader3
 		#region Контрастирование по гистограмме
 		private void cntr7_CheckedChanged(object sender, EventArgs e)
 		{
-			if (cntr7.Checked)
+			if (cntr3.Checked)
 			{
 				histo_bar1.Enabled = true;
 //				histo_bar1.Value = histo_bar1.Maximum;
@@ -1906,7 +1906,7 @@ namespace BMPReader3
 
 		private void checkBox2_CheckedChanged(object sender, EventArgs e)
 		{
-			if (checkBox2.Checked)
+			if (cntr1.Checked)
 				trb_contr1.Enabled = true;
 			else
 				trb_contr1.Enabled = false;
@@ -1914,7 +1914,7 @@ namespace BMPReader3
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox3.Checked)
+            if (cntr2.Checked)
                 trb_contr2.Enabled = true;
             else
                 trb_contr2.Enabled = false;
