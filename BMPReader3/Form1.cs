@@ -13,6 +13,7 @@ using BPview.Resources;
 using System.Diagnostics;
 using AForge.Video.VFW;
 using AForge.Video.DirectShow;
+using AForge.Imaging.Filters;
 using System.Threading;
 using System.Linq;
 
@@ -32,11 +33,14 @@ namespace BMPReader3
 		int expo = 0;
 		byte[] ImageData;
 		UInt16[] ImageData16;
+        Byte[] ImageData8;
+
 		UInt16[] BackData16;
 		UInt16[] ra_BackData16;
 		byte[] ra_ImageData;
 		byte[] ra_ImageData2;
 		List<uint> FlashData;
+        List<fls> FlashData2;
 
 		int iwidth = 0;
 		int iheight = 0;
@@ -168,9 +172,9 @@ namespace BMPReader3
 			trb_contr1.Minimum = 0;
 			trb_contr1.Maximum = 50;
 			trb_contr1.Value = 25;
-			trb_contr2.Minimum = 0;
-			trb_contr2.Maximum = 4000;
-			trb_contr2.Value = 0;
+            //trb_contr2.Minimum = 0;
+            //trb_contr2.Maximum = 4000;
+            //trb_contr2.Value = 0;
 
 //#if DEBUG
 			if (Environment.GetCommandLineArgs().Count() > 1 && Environment.CommandLine != "" && File.Exists(Environment.GetCommandLineArgs()[1]))
@@ -256,10 +260,23 @@ namespace BMPReader3
 		#region ContrastImage
 		private void ContrastImage()
 		{
-			if(cntr1.Checked)
+			if (glav_image == null)
+				return;
+
+            if (checkBox2.Checked)
+            {
+                HistogramEqualization filter = new HistogramEqualization();
+                // process image
+                filter.ApplyInPlace(glav_image);
+            }
+            if (checkBox3.Checked)
+            {
+                Sharpen filter = new Sharpen();
+                // apply the filter
+                filter.ApplyInPlace(glav_image);
+            }
+            if (cntr1.Checked)
 			{
-				if (glav_image == null)
-					return;
 				//Bitmap bm = new Bitmap(glav_image.Width, glav_image.Height);
 				Graphics g = Graphics.FromImage(glav_image);
 				ImageAttributes ia = new ImageAttributes();
@@ -272,7 +289,9 @@ namespace BMPReader3
 				g.DrawImage(glav_image, new Rectangle(0, 0, glav_image.Width, glav_image.Height), 0, 0, glav_image.Width, glav_image.Height, GraphicsUnit.Pixel, ia);
 				g.Dispose();
 				ia.Dispose();
-				}
+			}
+
+
 		}
 		#endregion
 
@@ -398,15 +417,21 @@ namespace BMPReader3
 						int fl_max = flashfindW.trackBar1.Maximum;
 						for (int j = 0; j < BackData16.Length; j++)
 						{
-//							if ((ImageData16[j] > (BackData16[j] + fl)) && (ImageData16[j] < (BackData16[j] + fl_max)))
 							if (ImageData16[j] > (BackData16[j] + fl))
 							{
-//								flashfindW.textBox1.AppendText(frame_counter.ToString() + " " + j.ToString() + " " + ImageData16[j] + " " + BackData16[j] + "\r\n");
-								flashfindW.textBox1.AppendText(frame_counter.ToString() + " " + j.ToString() + "\r\n");
 								FlashData.Add((uint)j);
+                                FlashData2.Add(new fls((int)frame_counter, j));
 							}
 						}
-					}
+                        if (FlashData2 != null)
+                            RemoveDoubles2(ref FlashData2);
+                        if (frame_counter == num_frames - 2)
+                        {
+                            flashfindW.textBox1.Clear();
+                            foreach (var item in FlashData2)
+                                flashfindW.textBox1.AppendText(item.f.ToString() + " " + item.n.ToString() + "\r\n");
+                        }
+                    }
 					ImageData16.CopyTo(BackData16, 0);
 					test_first = false;
 				}
@@ -513,8 +538,9 @@ namespace BMPReader3
 
 				#endregion
 
-				int _minpix = 65535, _maxpix = 0;
-				UInt16 _minp = 0, _maxp = 0;
+                int _minpix = 65535, _maxpix = 0;
+                Byte _minpix8 = 255, _maxpix8 = 0;
+                UInt16 _minp = 0, _maxp = 0;
 
 				Boolean _cntr7 = cntr3.Checked;
 
@@ -525,7 +551,8 @@ namespace BMPReader3
 
 				#region основной цикл обработки четверной цикл
 				int j1, j2, j3, j4;
-				for (int j = 0; j < ImageData16.Length; j += 4)
+                ImageData8 = new Byte[ImageData16.Length];
+                for (int j = 0; j < ImageData16.Length; j += 4)
 				{
 					#region Всякая обработка, контрастирование, сбор данных на гистограмму
 					j1 = j;
@@ -533,68 +560,96 @@ namespace BMPReader3
 					j3 = j + 2;
 					j4 = j + 3;
 
-					if (ImageData16[j1] < _minpix)
-						_minpix = ImageData16[j1];
-					if (ImageData16[j1] > _maxpix)
-						_maxpix = ImageData16[j1];
+                    if (ImageData16[j1] < _minpix)
+                        _minpix = ImageData16[j1];
+                    if (ImageData16[j1] > _maxpix)
+                        _maxpix = ImageData16[j1];
 
-					if (ImageData16[j2] < _minpix)
-						_minpix = ImageData16[j2];
-					if (ImageData16[j2] > _maxpix)
-						_maxpix = ImageData16[j2];
+                    if (ImageData16[j2] < _minpix)
+                        _minpix = ImageData16[j2];
+                    if (ImageData16[j2] > _maxpix)
+                        _maxpix = ImageData16[j2];
 
-					if (ImageData16[j3] < _minpix)
-						_minpix = ImageData16[j3];
-					if (ImageData16[j3] > _maxpix)
-						_maxpix = ImageData16[j3];
+                    if (ImageData16[j3] < _minpix)
+                        _minpix = ImageData16[j3];
+                    if (ImageData16[j3] > _maxpix)
+                        _maxpix = ImageData16[j3];
 
-					if (ImageData16[j4] < _minpix)
-						_minpix = ImageData16[j4];
-					if (ImageData16[j4] > _maxpix)
-						_maxpix = ImageData16[j4];
+                    if (ImageData16[j4] < _minpix)
+                        _minpix = ImageData16[j4];
+                    if (ImageData16[j4] > _maxpix)
+                        _maxpix = ImageData16[j4];
 
-					UInt16 _av_minp = (UInt16)((cur_minpix + _minp) / 2);
+
+                    //ImageData8[j1] = (byte)(ImageData16[j1] >> RSHT);
+                    //ImageData8[j2] = (byte)(ImageData16[j2] >> RSHT);
+                    //ImageData8[j3] = (byte)(ImageData16[j3] >> RSHT);
+                    //ImageData8[j4] = (byte)(ImageData16[j4] >> RSHT);
+
+                    //if (ImageData8[j1] < _minpix8)
+                    //    _minpix8 = ImageData8[j1];
+                    //if (ImageData8[j1] > _maxpix8)
+                    //    _maxpix8 = ImageData8[j1];
+
+                    //if (ImageData8[j2] < _minpix8)
+                    //    _minpix8 = ImageData8[j2];
+                    //if (ImageData8[j2] > _maxpix8)
+                    //    _maxpix8 = ImageData8[j2];
+
+                    //if (ImageData8[j3] < _minpix8)
+                    //    _minpix8 = ImageData8[j3];
+                    //if (ImageData8[j3] > _maxpix8)
+                    //    _maxpix8 = ImageData8[j3];
+
+                    //if (ImageData8[j4] < _minpix8)
+                    //    _minpix8 = ImageData8[j4];
+                    //if (ImageData8[j4] > _maxpix8)
+                    //    _maxpix8 = ImageData8[j4];
+
+                    UInt16 _av_minp = (UInt16)((cur_minpix + _minp) / 2);
 					UInt16 _av_maxp = (UInt16)((cur_maxpix + _maxp) / 2);
+
 					if (cntr2.Checked)
 					{
-						ImageData16[j1] = (UInt16)((ImageData16[j1] - corr) * corr_contr + corr); // Контрастирование
-						ImageData16[j2] = (UInt16)((ImageData16[j2] - corr) * corr_contr + corr); // Контрастирование
-						ImageData16[j3] = (UInt16)((ImageData16[j3] - corr) * corr_contr + corr); // Контрастирование
-						ImageData16[j4] = (UInt16)((ImageData16[j4] - corr) * corr_contr + corr); // Контрастирование
-					}
+                        ImageData16[j1] = (UInt16)((ImageData16[j1] - _av_minp) * corr / (_av_maxp - _av_minp)); // Контрастирование
+                        ImageData16[j2] = (UInt16)((ImageData16[j2] - _av_minp) * corr / (_av_maxp - _av_minp)); // Контрастирование
+                        ImageData16[j3] = (UInt16)((ImageData16[j3] - _av_minp) * corr / (_av_maxp - _av_minp)); // Контрастирование
+                        ImageData16[j4] = (UInt16)((ImageData16[j4] - _av_minp) * corr / (_av_maxp - _av_minp)); // Контрастирование
+                    }
 					if (cntr3.Checked)
 					{
 						// убираем фон
-						ImageData16[j1] = (UInt16)(((ImageData16[j1] - _av_minp) < 0) ? 0 : (ImageData16[j1] - _av_minp)); // Контрастирование
-						ImageData16[j2] = (UInt16)(((ImageData16[j2] - _av_minp) < 0) ? 0 : (ImageData16[j2] - _av_minp)); // Контрастирование
-						ImageData16[j3] = (UInt16)(((ImageData16[j3] - _av_minp) < 0) ? 0 : (ImageData16[j3] - _av_minp)); // Контрастирование
-						ImageData16[j4] = (UInt16)(((ImageData16[j4] - _av_minp) < 0) ? 0 : (ImageData16[j4] - _av_minp)); // Контрастирование
+                        ImageData16[j1] = (UInt16)(((ImageData16[j1] - _av_minp) < 0) ? 0 : (ImageData16[j1] - _av_minp)); // Контрастирование
+                        ImageData16[j2] = (UInt16)(((ImageData16[j2] - _av_minp) < 0) ? 0 : (ImageData16[j2] - _av_minp)); // Контрастирование
+                        ImageData16[j3] = (UInt16)(((ImageData16[j3] - _av_minp) < 0) ? 0 : (ImageData16[j3] - _av_minp)); // Контрастирование
+                        ImageData16[j4] = (UInt16)(((ImageData16[j4] - _av_minp) < 0) ? 0 : (ImageData16[j4] - _av_minp)); // Контрастирование
 
-						if (ImageData16[j1] < t1)
-							ImageData16[j1] = t1;
-						if (ImageData16[j1] > t2)
-							ImageData16[j1] = t2;
+                        if (ImageData16[j1] < t1)
+                            ImageData16[j1] = t1;
+                        if (ImageData16[j1] > t2)
+                            ImageData16[j1] = t2;
 
-						if (ImageData16[j2] < t1)
-							ImageData16[j2] = t1;
-						if (ImageData16[j2] > t2)
-							ImageData16[j2] = t2;
+                        if (ImageData16[j2] < t1)
+                            ImageData16[j2] = t1;
+                        if (ImageData16[j2] > t2)
+                            ImageData16[j2] = t2;
 
-						if (ImageData16[j3] < t1)
-							ImageData16[j3] = t1;
-						if (ImageData16[j3] > t2)
-							ImageData16[j3] = t2;
+                        if (ImageData16[j3] < t1)
+                            ImageData16[j3] = t1;
+                        if (ImageData16[j3] > t2)
+                            ImageData16[j3] = t2;
 
-						if (ImageData16[j4] < t1)
-							ImageData16[j4] = t1;
-						if (ImageData16[j4] > t2)
-							ImageData16[j4] = t2;
+                        if (ImageData16[j4] < t1)
+                            ImageData16[j4] = t1;
+                        if (ImageData16[j4] > t2)
+                            ImageData16[j4] = t2;
 
-						ImageData16[j1] = (UInt16)(ImageData16[j1] * (Double)predel / (t2 - t1));
-						ImageData16[j2] = (UInt16)(ImageData16[j2] * (Double)predel / (t2 - t1));
-						ImageData16[j3] = (UInt16)(ImageData16[j3] * (Double)predel / (t2 - t1));
-						ImageData16[j4] = (UInt16)(ImageData16[j4] * (Double)predel / (t2 - t1));
+                        ImageData16[j1] = (UInt16)(ImageData16[j1] * (Double)predel / (t2 - t1));
+                        ImageData16[j2] = (UInt16)(ImageData16[j2] * (Double)predel / (t2 - t1));
+                        ImageData16[j3] = (UInt16)(ImageData16[j3] * (Double)predel / (t2 - t1));
+                        ImageData16[j4] = (UInt16)(ImageData16[j4] * (Double)predel / (t2 - t1));
 					}
+
 
 					#endregion
 					#region Вывод данных в массив картинки
@@ -615,22 +670,22 @@ namespace BMPReader3
 					}
 					if (!image_bpp)
 					{
-						tmpVal81 = (byte)(((ImageData16[j1] >> RSHT) > 255) ? 255 : ImageData16[j1] >> RSHT);
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						tmpVal81 = (byte)(((ImageData16[j2] >> RSHT) > 255) ? 255 : ImageData16[j2] >> RSHT);
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						tmpVal81 = (byte)(((ImageData16[j3] >> RSHT) > 255) ? 255 : ImageData16[j3] >> RSHT);
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						tmpVal81 = (byte)(((ImageData16[j4] >> RSHT) > 255) ? 255 : ImageData16[j4] >> RSHT);
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
-						*(curpos8++) = tmpVal81;
+                        tmpVal81 = (byte)(((ImageData16[j1] >> RSHT) > 255) ? 255 : ImageData16[j1] >> RSHT);
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        tmpVal81 = (byte)(((ImageData16[j2] >> RSHT) > 255) ? 255 : ImageData16[j2] >> RSHT);
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        tmpVal81 = (byte)(((ImageData16[j3] >> RSHT) > 255) ? 255 : ImageData16[j3] >> RSHT);
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        tmpVal81 = (byte)(((ImageData16[j4] >> RSHT) > 255) ? 255 : ImageData16[j4] >> RSHT);
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
+                        *(curpos8++) = tmpVal81;
 					}
 					else
 					{
@@ -1854,8 +1909,9 @@ namespace BMPReader3
 				test_first = true;
 				flashfindW.textBox1.Clear();
 				BackData16 = new UInt16[dataSize / 2];
-				FlashData = new List<uint>();
-			}
+                FlashData = new List<uint>();
+                FlashData2 = new List<fls>();
+            }
 			else
 			{
 				flashfindW.Hide();
@@ -2000,6 +2056,62 @@ namespace BMPReader3
 				set.Add(value);
 			return set.ToList();
 		}
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<fls> lfl0 = new List<fls>();
+            List<fls> lfl1 = new List<fls>();
+            List<fls> lfl2 = new List<fls>();
+            int[] aa = new int[20] { 6, 1, 3, 9, 6, 3, 4, 4, 9, 8, 0, 3, 9, 6, 9, 4, 8, 5, 1, 0 }; 
+            Random rnd = new Random();
+            for (int i = 0; i < 20; i++)
+            {
+                fls fl = new fls(aa[i],i);
+                fl.n = aa[i];
+                fl.f = i;
+                lfl0.Add(fl);
+            }
+
+            RemoveDoubles2(ref lfl0);
+            Trace.WriteLine("--------------");
+            foreach (var item in lfl0)
+                Trace.WriteLine(item.f + " " + item.n);
+            Trace.WriteLine("--------------");
+        }
+
+        public void RemoveDoubles2(ref List<fls> lfl)
+        {
+            List<fls> lfl1 = new List<fls>();
+            for (int j = 0; j < lfl.Count; j++)
+            {
+                Boolean a = false;
+                for (int i = j + 1; i < lfl.Count; i++)
+                {
+                    if (lfl[j].n == lfl[i].n)
+                        a = true;
+                }
+                if (!a)
+                    lfl1.Add(lfl[j]);
+            }
+            lfl.Clear();
+            lfl = lfl1;
+        }
+
+        private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
 	}
+
+    public class fls
+    {
+        public int f;
+        public int n;
+        public fls(int f1, int n1)
+        {
+            f = f1;
+            n = n1;
+        }
+    }
 
 }

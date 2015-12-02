@@ -20,7 +20,6 @@ ipch/
 *.pdf
 *.rar
 *.txt
-BMPReader3/AF/
 BMPReader3/bin/
 BMPReader3/obj/
 BPview/bin/

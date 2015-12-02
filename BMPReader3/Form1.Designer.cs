@@ -86,6 +86,8 @@
             this.flash_find = new System.Windows.Forms.CheckBox();
             this.cb_RA = new System.Windows.Forms.CheckBox();
             this.tb_Delay = new System.Windows.Forms.TrackBar();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trb_contr1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbNavigation)).BeginInit();
@@ -518,7 +520,7 @@
             this.trb_contr2.AutoSize = false;
             this.trb_contr2.LargeChange = 1;
             this.trb_contr2.Location = new System.Drawing.Point(34, 35);
-            this.trb_contr2.Maximum = 4000;
+            this.trb_contr2.Maximum = 16383;
             this.trb_contr2.Minimum = 1;
             this.trb_contr2.Name = "trb_contr2";
             this.trb_contr2.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -526,7 +528,7 @@
             this.trb_contr2.TabIndex = 43;
             this.trb_contr2.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tt_contr.SetToolTip(this.trb_contr2, "Пороговое попиксельное контрастирование ");
-            this.trb_contr2.Value = 25;
+            this.trb_contr2.Value = 16383;
             // 
             // bt_screenshot
             // 
@@ -561,8 +563,6 @@
             // cntr2
             // 
             this.cntr2.AutoSize = true;
-            this.cntr2.Checked = true;
-            this.cntr2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cntr2.Location = new System.Drawing.Point(37, 20);
             this.cntr2.Name = "cntr2";
             this.cntr2.Size = new System.Drawing.Size(29, 17);
@@ -614,9 +614,9 @@
             this.cntr3.AutoSize = true;
             this.cntr3.Location = new System.Drawing.Point(66, 20);
             this.cntr3.Name = "cntr3";
-            this.cntr3.Size = new System.Drawing.Size(49, 17);
+            this.cntr3.Size = new System.Drawing.Size(46, 17);
             this.cntr3.TabIndex = 104;
-            this.cntr3.Text = "Гист";
+            this.cntr3.Text = "Лин";
             this.cntr3.UseVisualStyleBackColor = true;
             this.cntr3.CheckedChanged += new System.EventHandler(this.cntr7_CheckedChanged);
             // 
@@ -687,6 +687,7 @@
             // 
             // tb_Delay
             // 
+            this.tb_Delay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_Delay.AutoSize = false;
             this.tb_Delay.LargeChange = 100;
             this.tb_Delay.Location = new System.Drawing.Point(489, 666);
@@ -698,12 +699,35 @@
             this.tb_Delay.TickFrequency = 100;
             this.tb_Delay.Value = 1000;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(292, 666);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(93, 17);
+            this.checkBox2.TabIndex = 113;
+            this.checkBox2.Text = "Эквализация";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged_1);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(392, 666);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(74, 17);
+            this.checkBox3.TabIndex = 114;
+            this.checkBox3.Text = "Резкость";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(666, 722);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.tb_Delay);
             this.Controls.Add(this.cb_RA);
             this.Controls.Add(this.flash_find);
@@ -811,7 +835,9 @@
 		private System.Windows.Forms.CheckBox cntr1;
 		private System.Windows.Forms.TrackBar histo_bar2;
 		private System.Windows.Forms.CheckBox cntr2;
-		private System.Windows.Forms.TrackBar tb_Delay;
+        private System.Windows.Forms.TrackBar tb_Delay;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
 	}
 }
 
